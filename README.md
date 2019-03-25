@@ -1,0 +1,77 @@
+# 中文写的一个不愿意让人点击的倔强元素
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>一个倔强的元素</title>
+</head>
+
+<body>
+    <div id="app" style="position: fixed;
+                    left:20px;
+                    top: 20px;
+                    background: #444448;
+                    color: white;
+                    width: 150px;
+                    height: 93px;
+                    line-height: 93px;
+                    text-align: center;">
+        来点我呀！
+    </div>
+
+    <script>
+        (function () {
+            function 生成指定范围的随机数(最小值, 最大值) {
+                var 向上取整 = Math.ceil;
+                var 向下取整 = Math.floor;
+                var 生成一个零到一的随机数 = Math.random;
+
+                最小值 = 向上取整(最小值);
+                最大值 = 向下取整(最大值);
+
+                return 向下取整(生成一个零到一的随机数() * (最大值 - 最小值)) + 最小值;
+            };
+            function 为倔强元素设置新坐标() {
+                var 浏览器视口高度 = window.innerHeight;
+                var 浏览器视口宽度 = window.innerWidth;
+                var 样式 = 'style', 左 = 'left', 上 = 'top', 右 = 'right', 下 = 'bottom', 宽 = 'width', 高 = 'height', 像素 = 'px';
+                var 倔强的元素的边界框 = 倔强的元素.getBoundingClientRect();
+                var 可以向左跑 = 倔强的元素的边界框[左] > 倔强的元素的边界框[宽];
+                var 可以向右跑 = 浏览器视口宽度 - 倔强的元素的边界框[右] > 倔强的元素的边界框[宽];
+                var 可以向上跑 = 倔强的元素的边界框[上] > 倔强的元素的边界框[高];
+                var 可以向下跑 = 浏览器视口高度 - 倔强的元素的边界框[下] > 倔强的元素的边界框[高];
+
+                if (!可以向左跑 && !可以向右跑 && !可以向上跑 && !可以向下跑) return 弹出提示框('地方太小，施展不开绝技。');
+
+                var 新的左坐标 = 0, 新的上坐标 = 0;
+                if (可以向右跑) {
+                    新的左坐标 = 生成指定范围的随机数(倔强的元素的边界框[右], 浏览器视口宽度 - 倔强的元素的边界框[宽]);
+                }
+                else if (可以向左跑) {
+                    新的左坐标 = 生成指定范围的随机数(0, 倔强的元素的边界框[左]);
+                }
+
+                if (可以向下跑) {
+                    新的上坐标 = 生成指定范围的随机数(倔强的元素的边界框[下], 浏览器视口高度 - 倔强的元素的边界框[高]);
+                }
+                else if (可以向左跑) {
+                    新的上坐标 = 生成指定范围的随机数(0, 倔强的元素的边界框[上]);
+                }
+
+                倔强的元素[样式][左] = 新的左坐标 + 像素;
+                倔强的元素[样式][上] = 新的上坐标 + 像素;
+            };
+
+            var 弹出提示框 = alert;
+            var 倔强的元素 = document.querySelector('#app');
+            var 鼠标进入 = 'mouseenter';
+            var 添加事件监听 = 'addEventListener';
+            倔强的元素[添加事件监听](鼠标进入, 为倔强元素设置新坐标);
+        })();
+    </script>
+</body>
+
+</html>
+```
